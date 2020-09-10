@@ -13,6 +13,7 @@ function SubTotal() {
         displayType={"text"}
         thousandSeparator={true}
         prefix={"₹"}
+        decimalScale={2}
         renderText={(value) => (
           <>
             <p>

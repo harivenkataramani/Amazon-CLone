@@ -32,12 +32,12 @@ function Product({ id, title, proimage, price, rating }) {
         <div className="product_ratings">
           {Array(rating)
             .fill()
-            .map((a, b) => (
-              <p key={a}>⭐</p>
+            .map((_, i) => (
+              <p>⭐</p>
             ))}
         </div>
       </div>
-      <img src={proimage} alt="product image" />
+      <img src={proimage} alt="prodmage" />
       <button onClick={addToBasket} className="product_button">
         Add to basket
       </button>

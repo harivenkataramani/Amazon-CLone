@@ -7,9 +7,18 @@ import { Link } from "react-router-dom";
 
 import "./Header.css";
 import { useStateValue } from "./ContextApi/StateProvider";
+import { auth } from "./firebase";
 
 function Header() {
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
+  console.log("USERSSSSS<", user);
+
+  const userAuthentication = () => {
+    if (user) {
+      auth.signOut();
+    }
+  };
+
   return (
     <div className="header">
       <Link to="/">
@@ -25,10 +34,17 @@ function Header() {
         <SearchIcon className="header_searchIcon" />
       </div>
       <div className="header_nav">
-        <div className="header_nav_option">
-          <span className="header__nav__optionLineOne">Hello User</span>
-          <span className="header__nav__optionLineTwo">Sign In</span>
-        </div>
+        {/* if no user then redirect to login */}
+        <Link to={!user && "/login"}>
+          <div onClick={userAuthentication} className="header_nav_option">
+            <span className="header__nav__optionLineOne">
+              Hello {user ? user.email : "Guest"}
+            </span>
+            <span className="header__nav__optionLineTwo">
+              {user ? "Sign Out" : "Sign In"}
+            </span>
+          </div>
+        </Link>
         <div className="header_nav_option">
           <span className="header__nav__optionLineOne">Returns</span>
           <span className="header__nav__optionLineTwo">& Orders</span>
